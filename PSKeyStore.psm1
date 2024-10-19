@@ -69,6 +69,15 @@ function Get-PKSUserSecret {
     return $pass
 }
 
+function Get-PKSUserSecretAsPlain {
+    param (
+        [Parameter(Mandatory=$true)]
+        [string] $SecretName
+    )
+    
+    return $(Get-PKSUserSecret $SecretName | Get-PKSPlainStringFromSecureString)
+}
+
 function Get-PKSUserSecretList {
     $vault = Get-PKSUserSecretVaultPath
 
@@ -81,4 +90,5 @@ Export-ModuleMember -Function New-PKSUserSecretFromPlainText
 Export-ModuleMember -Function New-PKSUserSecretFromSecureString 
 Export-ModuleMember -Function New-PKSSecretFromSecureUI
 Export-ModuleMember -Function Get-PKSUserSecret
+Export-ModuleMember -Function Get-PKSUserSecretAsPlain
 Export-ModuleMember -Function Get-PKSUserSecretList
